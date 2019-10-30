@@ -51,6 +51,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 const lessRegex = /\.less$/;
 const lessModuleRegex = /\.module\.less$/;
+const lessVarPath = process.env.REACT_APP_LESS_VAR_PATH || '../src/styles/var.less'
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -461,7 +462,7 @@ module.exports = function (webpackEnv) {
                                 {
                                     loader: "sass-resources-loader",
                                     options: {
-                                        resources: path.join(__dirname, "../src/styles/var.less")
+                                        resources: path.join(__dirname, lessVarPath)
                                     }
                                 }
                             ]),
@@ -487,7 +488,7 @@ module.exports = function (webpackEnv) {
                                 {
                                     loader: "sass-resources-loader",
                                     options: {
-                                        resources: path.join(__dirname, "../src/styles/var.less")
+                                        resources: path.join(__dirname, lessVarPath)
                                     }
                                 }
                             ]),
