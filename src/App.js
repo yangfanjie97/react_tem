@@ -2,17 +2,17 @@ import React from 'react';
 import './App.css';
 import {Provider} from "react-redux";
 import store from "./store/index";
-
-import TestC from './components/test'
+import { renderRoutes } from "react-router-config";
+import Routers from '@/routers'
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
     return (
         <Provider store={store}>
             <div>
-                你好，世界
-                <div>
-                    <TestC/>
-                </div>
+                <BrowserRouter>
+                    {renderRoutes(Routers)}
+                </BrowserRouter>
             </div>
         </Provider>
     );
