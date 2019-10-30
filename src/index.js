@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import './styles/index.less'
 import * as serviceWorker from './serviceWorker';
 
 // import fastclick from 'fastclick';  // 移动端点击 300ms 延迟处理
