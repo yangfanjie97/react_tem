@@ -1,4 +1,5 @@
-#react 基础模板，在create-react-app 上进行改造
+##react 基础模板，在create-react-app 上进行改造
+
 
 ### 1.关于测试环境打包
 添加 stg 打包， 用于打包测试环境所需代码。打包的文件夹名默认为buildStg，可在.env.stg 文件中修改
@@ -15,3 +16,7 @@
 
 
 ### 5. 添加基础的axios 的封装
+
+
+### 6. 添加简单权限控制
+具体查看 hocs/PermissionHOC
