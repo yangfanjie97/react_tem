@@ -2,7 +2,7 @@ import * as actionTypes from "./constants";
 import {fromJS} from "immutable";
 
 const defaultState = fromJS({
-    token: '默认token',
+    token: '',
     userInfo: {}
 })
 
