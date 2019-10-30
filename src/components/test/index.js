@@ -27,4 +27,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // 将ui组件包装成容器组件
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(TestC));
+// export default connect(mapStateToProps, mapDispatchToProps)(React.memo(TestC));
+export default connect(mapStateToProps, mapDispatchToProps)(TestC);
