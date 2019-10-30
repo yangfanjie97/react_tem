@@ -1,10 +1,11 @@
 import React from 'react';
-import './App.css';
 import {Provider} from "react-redux";
 import store from "./store/index";
 import { renderRoutes } from "react-router-config";
 import Routers from '@/routers'
 import { BrowserRouter } from "react-router-dom";
+
+import './styles/index.less'
 
 function App() {
     return (
