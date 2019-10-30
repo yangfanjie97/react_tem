@@ -1,11 +1,11 @@
-import React, { lazy, Suspense } from "react";
-import { Redirect } from "react-router-dom";
+import React, {lazy, Suspense} from "react";
+import {Redirect} from "react-router-dom";
 import NullLayout from "@/layouts/Null";
 
-const SuspenseComponent = Component => props => {
+const SuspenseComponent = (Component, meta) => props => {
     return (
         <Suspense fallback={null}>
-            <Component {...props}></Component>
+            <Component meta={meta} {...props}></Component>
         </Suspense>
     )
 }
@@ -25,11 +25,11 @@ export default [
                     {
                         path: "/",
                         exact: true,
-                        render: () => <Redirect to={"/index"} />
+                        render: () => <Redirect to={"/index"}/>
                     },
                     {
                         path: "/index",
-                        component: SuspenseComponent(Home)
+                        component: SuspenseComponent(Home, { title: '首页' })
                     },
                     {
                         path: "/login",
