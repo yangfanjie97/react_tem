@@ -1,39 +1,42 @@
 // 权限高阶组件， 对页面级权限进行控制, 我也不知道算不算高阶组件
 import React from 'react'
 import {updateUserToken} from '@/store/user/actionCreators'
+import {updatePermissionRouter} from '@/store/permission/actionCreators'
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
 
 // 映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({
     token: state.getIn(['user', 'token']),
+    permissionRouter: state.getIn(['permission', 'permissionRouter']).toJS(), // 权限路由
+    routerWhiteList: state.getIn(['permission', 'routerWhiteList']).toJS() // 白名单
 });
 // 映射dispatch到props上
 const mapDispatchToProps = (dispatch) => {
     return {
         changeTokenDispatch(token) {
             dispatch(updateUserToken(token));
+        },
+        updatePermissionRouter(router) {
+            dispatch(updatePermissionRouter(router))
         }
     }
 };
 
-// 这里做了一个简单的判断，如果没有token， 直接跳转到  toPath 页面
-// 这里只是简单的控制， 如果需要后台返回前端路由，可在 routers 的路由中填写 meta 的 key值， key值需要前端告知后台由后台返回
-// 这里就可修改为 在store 中拉取权限路由（key 值列表）， 然后使用 使用本路由的key  对比权限路由
-// 如果有，正常显示， 如果没有，返回 Redirect
-function PermissionHOC(WrappedComponent, toPath = '/login') { // toPath 是 字符类型
+// 对路由权限进行判断
+// 主要是先核对 路由白名单，如果在白名单中，正常显示
+// 然后核对 权限路由表， 如果在，正常显示
+// 都不在， 重定向
+function PermissionHOC(WrappedComponent) {
     class Permission extends React.Component {
         constructor(props) {
             super(props)
-            // this.props.location.pathname + this.props.location.search
             const nowPath = this.props.location.pathname + this.props.location.search
-            let toPathOver = toPath
-            if (!this.props.token) {
-                if (!toPathOver.includes('?')) {
-                    toPathOver = toPathOver + ('?redirectTo=' + nowPath)
-                } else {
-                    toPathOver = toPathOver + ('redirectTo=' + nowPath)
-                }
+            let toPathOver = this.props.token ? '/404' : '/login'
+            if (!toPathOver.includes('?')) {
+                toPathOver = toPathOver + ('?redirectTo=' + nowPath)
+            } else {
+                toPathOver = toPathOver + ('redirectTo=' + nowPath)
             }
             this.state = {
                 nowPath,
@@ -42,9 +45,14 @@ function PermissionHOC(WrappedComponent, toPath = '/login') { // toPath 是 字�
         }
 
         render() {
-            if (this.props.token) {
+            if (this.props.routerWhiteList.includes(this.props.meta.key)) {
+                // 如果在白名单， 正常显示
+                return <WrappedComponent {...this.props} />;
+            } else if (this.props.permissionRouter.includes(this.props.meta.key)) {
+                // 如果在权限路由中， 正常显示
                 return <WrappedComponent {...this.props} />;
             } else {
+                // 表示 无权限。 进行跳转
                 return <Redirect to={this.state.toPathOver} />
             }
         }
