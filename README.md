@@ -18,5 +18,9 @@
 ### 5. 添加基础的axios 的封装
 
 
-### 6. 添加简单权限控制
-具体查看 hocs/PermissionHOC
+### 6. 添加权限控制
+主要是使用key 标识路由，然后后台返回权限路由， 然后使用  hocs/PermissionHOC 进行匹配
+主要是对 store/permission 的白名单 和 权限路由列表匹配
+
+
+### 7. 添加对路由级别的基础处理 高阶组件，具体查看 hocs/BaseRouterHOC
