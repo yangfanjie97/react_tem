@@ -50,6 +50,7 @@ function PermissionHOC(WrappedComponent) {
         }
 
         componentDidMount() {
+            // 这里主要是对 用户手动刷新页面 处理
             if (!this.props.token) {
                 this.setState((state, props) => {
                     return {ajaxOver: true};
