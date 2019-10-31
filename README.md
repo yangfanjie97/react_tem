@@ -11,7 +11,7 @@
 ### 3.添加 router
 
 
-### 4. 添加less 和 less 变量全局导入
+### 4. 添加less 和 less 变量全局混入
 具体在 webpack.config 文件中查看， less 的 变量文件位置 可在.env 配置
 
 
@@ -23,4 +23,4 @@
 主要是对 store/permission 的白名单 和 权限路由列表匹配
 
 
-### 7. 添加对路由级别的基础处理 高阶组件，具体查看 hocs/BaseRouterHOC
+### 7. 添加对路由级别的基础处理的高阶组件，具体查看 hocs/BaseRouterHOC

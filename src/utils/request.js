@@ -11,7 +11,7 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
     config => {
-        if (store.getters.token) {
+        if (getToken()) {
             // 让每个请求携带 token
             config.headers['Authorization'] = 'Bearer ' + getToken()
         }
@@ -26,8 +26,8 @@ service.interceptors.request.use(
 // 响应拦截器
 service.interceptors.response.use(
     response => {
-        const res = response.data
-
+        const data = response.data
+        return data
         /*if (res.code !== 2000) {
             return Promise.reject(new Error(res.message || '请求数据错误'))
         } else {
